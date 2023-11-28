@@ -11,4 +11,9 @@ urlpatterns = [
         cliente_views.listar_cliente_id,
         name="listar_cliente_id",
     ),
+    path(
+        "editar_cliente/<int:id>",
+        cliente_views.editar_cliente,
+        name="editar_cliente",
+    ),
 ]
