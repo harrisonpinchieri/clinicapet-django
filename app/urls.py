@@ -16,4 +16,9 @@ urlpatterns = [
         cliente_views.editar_cliente,
         name="editar_cliente",
     ),
+    path(
+        "remover_cliente/<int:id>",
+        cliente_views.remover_cliente,
+        name="remover_cliente",
+    ),
 ]

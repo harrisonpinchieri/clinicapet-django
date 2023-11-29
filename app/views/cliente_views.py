@@ -15,6 +15,16 @@ def listar_cliente_id(request, id):
     return render(request, "clientes/lista_cliente.html", {"cliente": cliente})
 
 
+def remover_cliente(request, id):
+    cliente = cliente_service.listar_cliente_id(id)
+    endereco = endereco_service.listar_endereco_id(cliente.endereco.id)
+    if request.method == "POST":
+        cliente_service.remover_cliente(cliente)
+        endereco_service.remover_endereco(endereco)
+        return redirect("listar_clientes")
+    return render(request, "clientes/confirma_exclusao.html", {"cliente": cliente})
+
+
 def cadastrar_cliente(request):
     if request.method == "POST":
         form_cliente = ClienteForm(request.POST)
@@ -54,6 +64,9 @@ def cadastrar_cliente(request):
 
 def editar_cliente(request, id):
     cliente_editar = cliente_service.listar_cliente_id(id)
+    cliente_editar.data_nascimento = cliente_editar.data_nascimento.strftime(
+        "%Y-%m-%d"
+    )  # Conversão da data
     form_cliente = ClienteForm(request.POST or None, instance=cliente_editar)
     endereco_editar = endereco_service.listar_endereco_id(cliente_editar.endereco.id)
     form_endereco = EnderecoClienteForm(request.POST or None, instance=endereco_editar)
