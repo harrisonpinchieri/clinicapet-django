@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+
 from ..forms import consulta_forms
 from ..services import pet_service, consulta_service
 from ..entidades import consulta
@@ -24,8 +25,10 @@ def inserir_consulta(request, id):
                 medicamentos_prescritos=medicamentos_prescritos,
                 exames_prescritos=exames_prescritos,
             )
-        consulta_service.cadastrar_consulta(consulta_nova)
-        return redirect("listar_pet_id", pet.id)
-else:
-    form_consulta = consulta_forms.ConsultaPet()
-return render(request,'consultas/form_consulta.html',{'form_consulta': form_consulta})
+            consulta_service.cadastar_consulta(consulta_nova)
+            return redirect("listar_pet_id", pet.id)
+    else:
+        form_consulta = consulta_forms.ConsultaPetForm()
+    return render(
+        request, "consultas/form_consulta.html", {"form_consulta": form_consulta}
+    )
