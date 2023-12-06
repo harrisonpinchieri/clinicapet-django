@@ -12,3 +12,8 @@ def cadastar_consulta(consulta):
     )
 
     consulta_bd.save()
+
+
+def listar_consultas(id):
+    consultas = ConsultaPet.objects.filter(pet=id).all()
+    return consultas
