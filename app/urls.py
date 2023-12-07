@@ -28,4 +28,9 @@ urlpatterns = [
         consulta_views.inserir_consulta,
         name="cadastrar_consulta",
     ),
+    path(
+        "lista_consulta/<int:id>",
+        consulta_views.listar_consulta_id,
+        name="lista_consulta_id",
+    ),
 ]
