@@ -1,5 +1,11 @@
 from django.urls import path
-from .views import cliente_views, pet_views, consulta_views, funcionario_views
+from .views import (
+    cliente_views,
+    pet_views,
+    consulta_views,
+    funcionario_views,
+    autenticacao_views,
+)
 
 urlpatterns = [
     path(
@@ -43,4 +49,10 @@ urlpatterns = [
         funcionario_views.listar_funcionarios,
         name="listar_funcionarios",
     ),
+    path(
+        "login",
+        autenticacao_views.login_usuario,
+        name="login",
+    ),
+    path("logout", autenticacao_views.deslogar_usuario, name="logout"),
 ]
