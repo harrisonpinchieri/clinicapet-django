@@ -11,4 +11,6 @@ def cadastrar_funcionario(funcionario):
         nome=funcionario.nome,
         nascimento=funcionario.nascimento,
         cargo=funcionario.cargo,
+        username=funcionario.username,
+        password=funcionario.password,
     )
