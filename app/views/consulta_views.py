@@ -1,4 +1,3 @@
-from pathlib import os
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test, login_required
 from ..forms import consulta_forms
@@ -6,10 +5,7 @@ from ..services import pet_service, consulta_service
 from ..entidades import consulta
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-
-from dotenv import load_dotenv
-
-load_dotenv()
+from setup import settings
 
 
 @user_passes_test(lambda u: u.cargo == 1)
@@ -57,11 +53,11 @@ def enviar_email_consulta(request, id):
         "consultas/consulta_email.html", {"consulta": consulta}
     )
     corpo_email = "Resumo da sua consulta"
-    email_remetente = str(os.getenv("EMAIL"))
+    email_remetente = settings.EMAIL_HOST_USER
     email_destino = [
         pet_consulta.dono.email,
     ]
     send_mail(
         assunto, corpo_email, email_remetente, email_destino, html_message=html_conteudo
     )
-    return redirect("listar_consulta_id", id)
+    return redirect("lista_consulta_id", id)
